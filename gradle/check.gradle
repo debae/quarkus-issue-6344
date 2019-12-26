@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7"
+    }
+}
+
+apply plugin: 'jacoco'
+
+test {
+    exclude '**/*IntegrationTest.*'
+
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
+
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    reports {
+        junitXml.enabled = true
+    }
+}
+
+jacoco {
+}

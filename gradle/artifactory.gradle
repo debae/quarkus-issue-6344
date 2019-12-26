@@ -1,0 +1,42 @@
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact distZip
+        }
+    }
+}
+
+distZip {
+    archiveName "quarkus-example-lambda.zip"
+}
+
+distributions {
+    main {
+        contents {
+            into('/') {
+                from projectDir
+                include 'serverless.yml'
+                include 'serverless/**/*.yml'
+                include 'package.json'
+            }
+            into('/') {
+                from projectDir
+                include 'bootstrap'
+                include 'cacerts'
+                include 'libsunec.so'
+                fileMode 0755
+            }
+            into('/') {
+                from 'build'
+                include '*-runner'
+                fileMode 0755
+            }
+        }
+    }
+}
+
+task printProjectName {
+    doLast {
+        println project.name
+    }
+}

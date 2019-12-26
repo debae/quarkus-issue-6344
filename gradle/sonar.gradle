@@ -1,0 +1,11 @@
+apply plugin: 'org.sonarqube'
+sonarqube {
+    properties {
+        property "sonar.projectKey", project.name
+        property "sonar.host.url", project.property('sonar.host.url')
+        
+        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/jacocoTest.exec"
+        property "sonar.junit.reportsPath", "${project.buildDir}/test-results/test"
+        property "sonar.jacoco.itReportPath", "build/jacoco/integrationTest.exec"
+    }
+}
